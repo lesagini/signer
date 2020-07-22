@@ -1,4 +1,5 @@
-# TensorFlow Lite Speech Command Recognition Android Demo
+# Android Speech Recognition App
+tensorflow bacckend
 
 ### Overview
 
@@ -6,7 +7,7 @@ This app performs recognition of speech Commands on mobile, highlighting the spo
 
 <!-- TODO(b/124116863): Add app screenshot. -->
 
-## Build the demo using Android Studio
+## Build the app using Android Studio
 
 ### Prerequisites
 
@@ -18,7 +19,7 @@ This app performs recognition of speech Commands on mobile, highlighting the spo
 ### Building
 * Open Android Studio, and from the Welcome screen, select Open an existing Android Studio project.
 
-* From the Open File or Project window that appears, navigate to and select the tensorflow-lite/examples/speech_commands/android directory from wherever you cloned the TensorFlow Lite sample GitHub repo. Click OK.
+* From the Open File or Project window that appears, navigate to and select the android directory from wherever you cloned the signer GitHub repo. Click OK.
 
 * If it asks you to do a Gradle Sync, click OK.
 
