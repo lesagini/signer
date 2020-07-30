@@ -3,4 +3,5 @@
     <color name="tfe_color_primary">#66B2FF</color>
     <color name="tfe_color_primary_dark">#004C99</color>
     <color name="tfe_color_accent">#425066</color>
+    <color name="white">#FFFFFF</color>
 </resources>
