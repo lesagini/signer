@@ -49,6 +49,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -85,7 +86,7 @@ public class SpeechActivity extends Activity
   private static final float DETECTION_THRESHOLD = 0.50f;
   private static final int SUPPRESSION_MS = 1500;
   private static final int MINIMUM_COUNT = 3;
-  private static final long MINIMUM_TIME_BETWEEN_SAMPLES_MS = 30;
+  private static final long MINIMUM_TIME_BETWEEN_SAMPLES_MS = 5;
   private static final String LABEL_FILENAME = "file:///android_asset/conv_labels.txt";
   private static final String MODEL_FILENAME = "file:///android_asset/converted_model.tflite";
 
@@ -114,7 +115,7 @@ public class SpeechActivity extends Activity
   private Handler backgroundHandler;
 
   private EditText editText;
-
+  private ImageButton imageBtn;
   /** Memory-map the model file in Assets. */
   private static MappedByteBuffer loadModelFile(AssetManager assets, String modelFilename)
       throws IOException {
@@ -170,11 +171,19 @@ public class SpeechActivity extends Activity
 
     tfLite.resizeInput(0, new int[] {RECORDING_LENGTH, 1});
     tfLite.resizeInput(1, new int[] {1});
-
+    imageBtn = findViewById(R.id.imageButton);
     // Start the recording and recognition threads.
     requestMicrophonePermission();
-    startRecording();
-    startRecognition();
+    imageBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+
+          startRecording();
+          startRecognition();
+
+      }
+    });
+
 
     editText = findViewById(R.id.display_text);
 
