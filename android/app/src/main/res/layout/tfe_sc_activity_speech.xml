@@ -14,83 +14,87 @@
  limitations under the License.
 -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:background="@drawable/latest">
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+        android:id="@+id/logo_layout">
+        <!--  <ImageView
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:src="@mipmap/ic_launcher"
+              android:paddingLeft="5dp"
+              android:layout_marginRight="10dp"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:fontFamily="sans-serif"
+              android:padding="10dp"
+              android:text="Communication Made Easy! "
+              android:textColor="@android:color/holo_blue_dark"
+              android:textSize="20dp" >
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="209dp"
-        android:layout_height="90dp"
-        android:layout_alignParentTop="true"
-        android:background="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.631"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-
+          </TextView>
+          -->
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_layout"
+        android:id="@+id/mic_layout"
+        android:layout_marginTop="220dp"
+        android:gravity="center">
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="80dp"
-            android:src="@mipmap/ic_launcher" />
-    </androidx.appcompat.widget.Toolbar>
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mic_icon">
 
-    <TextView
+        </ImageView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/mic_layout"
+        android:layout_marginTop="10dp"
+        android:padding="20dp">
+
+    <!--<TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
         android:layout_gravity="top"
         android:layout_marginTop="93dp"
         android:background="@color/tfe_color_primary"
         android:fontFamily="sans-serif"
         android:padding="10dp"
         android:text="Communication Made Easy! "
-        android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.037" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="139dp"
-        android:layout_marginEnd="140dp"
-        android:src="@drawable/mic_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.104">
-
-    </ImageButton>
-
-    <EditText
-        android:id="@+id/display_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="300dp"
-        android:gravity="right"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:layout_constraintVertical_bias="1.0" />
+        android:textSize="20dp" />
+-->
+        <EditText
+            android:id="@+id/display_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColor="@android:color/black"
+            android:hint="press button to record"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/custom_edit_text"
+            />
+    </RelativeLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

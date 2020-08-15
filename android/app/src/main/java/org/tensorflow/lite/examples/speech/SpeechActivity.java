@@ -88,7 +88,7 @@ public class SpeechActivity extends Activity
   private static final int MINIMUM_COUNT = 3;
   private static final long MINIMUM_TIME_BETWEEN_SAMPLES_MS = 5;
   private static final String LABEL_FILENAME = "file:///android_asset/conv_labels.txt";
-  private static final String MODEL_FILENAME = "file:///android_asset/converted_model.tflite";
+  private static final String MODEL_FILENAME = "file:///android_asset/converted_model1.tflite";
 
   // UI elements.
   private static final int REQUEST_RECORD_AUDIO = 13;
@@ -115,7 +115,7 @@ public class SpeechActivity extends Activity
   private Handler backgroundHandler;
 
   private EditText editText;
-  private ImageButton imageBtn;
+  private ImageView imageBtn;
   /** Memory-map the model file in Assets. */
   private static MappedByteBuffer loadModelFile(AssetManager assets, String modelFilename)
       throws IOException {

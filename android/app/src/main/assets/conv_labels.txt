@@ -7,7 +7,6 @@ change
 do
 for
 get
-happy
 hello
 hey
 how
