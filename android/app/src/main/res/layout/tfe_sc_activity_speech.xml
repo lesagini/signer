@@ -17,11 +17,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/latest">
+    android:background="@drawable/latest"
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    >
+
+
+    <!--  <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
@@ -29,7 +33,7 @@
         android:paddingTop="5dp"
         android:paddingBottom="10dp"
         android:id="@+id/logo_layout">
-        <!--  <ImageView
+        <ImageView
               android:layout_width="50dp"
               android:layout_height="50dp"
               android:src="@mipmap/ic_launcher"
@@ -45,23 +49,40 @@
               android:textSize="20dp" >
 
           </TextView>
-          -->
-    </androidx.appcompat.widget.LinearLayoutCompat>
-    <RelativeLayout
+          
+    </androidx.appcompat.widget.LinearLayoutCompat>-->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/logo_layout"
         android:id="@+id/mic_layout"
         android:layout_marginTop="220dp"
+        android:orientation="vertical"
         android:gravity="center">
+
+        <com.eyalbira.loadingdots.LoadingDots
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:LoadingDots_auto_play="false"
+                android:id="@+id/loading"
+                app:LoadingDots_dots_color="@android:color/holo_blue_light"
+                app:LoadingDots_dots_count="4"
+                app:LoadingDots_dots_size="15dp"
+                app:LoadingDots_dots_space="2dp"
+
+                app:LoadingDots_loop_duration="800"
+                app:LoadingDots_loop_start_delay="100"
+
+                app:LoadingDots_jump_duration="200"
+                app:LoadingDots_jump_height="4dp" />
+
         <ImageView
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/mic_icon">
-
         </ImageView>
-    </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

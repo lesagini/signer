@@ -42,7 +42,7 @@ public class RecognizeCommands {
   private float previousTopLabelScore;
 
   private static final String SILENCE_LABEL = "_silence_";
-  private static final long MINIMUM_TIME_FRACTION = 4;
+  private static final long MINIMUM_TIME_FRACTION = 4; //initially 4
 
   public RecognizeCommands(
       List<String> inLabels,

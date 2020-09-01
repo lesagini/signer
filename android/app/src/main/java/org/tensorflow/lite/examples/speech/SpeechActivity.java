@@ -31,6 +31,7 @@ the RecognizeCommands helper class.
 
 package org.tensorflow.lite.examples.speech;
 
+
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
@@ -52,7 +53,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.eyalbira.loadingdots.LoadingDots;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -68,6 +72,8 @@ import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 import org.tensorflow.lite.Interpreter;
 
+import io.rmiri.buttonloading.ButtonLoading;
+
 /**
  * An activity that listens for audio and then uses a TensorFlow model to detect particular classes,
  * by default a small set of action words.
@@ -82,11 +88,11 @@ public class SpeechActivity extends Activity
   private static final int SAMPLE_RATE = 16000;
   private static final int SAMPLE_DURATION_MS = 1000;
   private static final int RECORDING_LENGTH = (int) (SAMPLE_RATE * SAMPLE_DURATION_MS / 1000);
-  private static final long AVERAGE_WINDOW_DURATION_MS = 1000;
+  private static final long AVERAGE_WINDOW_DURATION_MS = 500;
   private static final float DETECTION_THRESHOLD = 0.50f;
-  private static final int SUPPRESSION_MS = 1500;
+  private static final int SUPPRESSION_MS = 300;
   private static final int MINIMUM_COUNT = 3;
-  private static final long MINIMUM_TIME_BETWEEN_SAMPLES_MS = 5;
+  private static final long MINIMUM_TIME_BETWEEN_SAMPLES_MS = 1;
   private static final String LABEL_FILENAME = "file:///android_asset/conv_labels.txt";
   private static final String MODEL_FILENAME = "file:///android_asset/converted_model1.tflite";
 
@@ -113,9 +119,11 @@ public class SpeechActivity extends Activity
   private Handler handler = new Handler();
   private HandlerThread backgroundThread;
   private Handler backgroundHandler;
-
+  private ButtonLoading buttonLoading;
   private EditText editText;
   private ImageView imageBtn;
+  private LoadingDots loadingDots;
+
   /** Memory-map the model file in Assets. */
   private static MappedByteBuffer loadModelFile(AssetManager assets, String modelFilename)
       throws IOException {
@@ -172,17 +180,21 @@ public class SpeechActivity extends Activity
     tfLite.resizeInput(0, new int[] {RECORDING_LENGTH, 1});
     tfLite.resizeInput(1, new int[] {1});
     imageBtn = findViewById(R.id.imageButton);
+    RelativeLayout root = findViewById(R.id.root);
+    loadingDots = findViewById(R.id.loading);
     // Start the recording and recognition threads.
     requestMicrophonePermission();
     imageBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-
+          loadingDots.startAnimation();
           startRecording();
           startRecognition();
 
+
       }
     });
+
 
 
     editText = findViewById(R.id.display_text);
@@ -223,13 +235,13 @@ public class SpeechActivity extends Activity
     recordingThread.start();
   }
 
-  /*public synchronized void stopRecording() {
+public synchronized void stopRecording() {
     if (recordingThread == null) {
       return;
     }
     shouldContinue = false;
     recordingThread = null;
-  }*/
+  }
 
   private void record() {
     android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
@@ -319,7 +331,8 @@ public class SpeechActivity extends Activity
 
     // Loop, grabbing recorded data and running the recognition model on it.
     while (shouldContinueRecognition) {
-      long startTime = new Date().getTime();
+
+      //long startTime = new Date().getTime();
       // The recording thread places data in this round-robin buffer, so lock to
       // make sure there's no writing happening and then copy it to our own
       // local version.
@@ -351,7 +364,7 @@ public class SpeechActivity extends Activity
       long currentTime = System.currentTimeMillis();
       final RecognizeCommands.RecognitionResult result =
           recognizeCommands.processLatestResults(outputScores[0], currentTime);
-      lastProcessingTimeMs = new Date().getTime() - startTime;
+      //lastProcessingTimeMs = new Date().getTime() - startTime;
       runOnUiThread(
           new Runnable() {
             @Override
@@ -359,8 +372,17 @@ public class SpeechActivity extends Activity
 
               // If we do have a new command, highlight the right list entry.
               if (!result.foundCommand.startsWith("_") && result.isNewCommand) {
+
+                //Return if statement
+                if(new String(result.foundCommand)=="_silence_"){
+                  editText.append("");
+                }else{
+                  editText.append(" "+result.foundCommand);
+                }
+                /*
                 int labelIndex = -1;
                 for (int i = 0; i < labels.size(); ++i) {
+
                   if (labels.get(i).equals(result.foundCommand)) {
                     labelIndex = i;
                   }
@@ -376,7 +398,7 @@ public class SpeechActivity extends Activity
                             }
                           }
                         },
-                        750);
+                        750);*/
               }
             }
           });

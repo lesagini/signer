@@ -1,17 +1,17 @@
 
 #include <Wire.h>
-#include <SoftwareSerial.h>
+//#include <SoftwareSerial.h>
 
 boolean isBluetoothEnabled = true;
 // Pins connected to the HC-06 bluetooth module
 int rxPin = 1;
 int txPin = 0;
-SoftwareSerial bluetooth(rxPin, txPin);
+//SoftwareSerial bluetooth(rxPin, txPin);
 
 // Pins used for I/O
-int btnPin1 = 7;
-int btnPin2 = 10;
-int btnMode = 8;
+int btnPin1 = 10;
+//int btnPin2 = 7;
+//int btnMode = 8;
 int pin1 = A0;
 int pin2 = A1;
 int pin3 = A2;
@@ -25,7 +25,7 @@ int16_t AcX,AcY,AcZ,Tmp,GyX,GyY,GyZ;
 
 // Status variables, used with buttons
 int precBtn1 = HIGH;
-int precBtn2 = HIGH;
+//int precBtn2 = HIGH;
 int redLedPin = LED_BUILTIN;
 void setup(){
   
@@ -47,14 +47,14 @@ void setup(){
 
   // Start the serial communication
   Serial.begin(38400);
-  bluetooth.begin(38400);
+  //bluetooth.begin(38400);
 }
 void loop(){
   // Read the values of the buttons
   
   int resultBtn1 = digitalRead(btnPin1);
-  int resultBtn2 = digitalRead(btnPin2);
-  int resultMode = digitalRead(btnMode);
+  //int resultBtn2 = digitalRead(btnPin2);
+  //int resultMode = digitalRead(btnMode);
   // ON btn1 pressed, start the batch and light up the yellow LED
   if(precBtn1 == HIGH && resultBtn1 == LOW)
   {
@@ -62,7 +62,7 @@ void loop(){
   }
   
   // ON btn2 pressed, toggle the communication channel ( Bluetooth/Serial )
-  if (precBtn2 == HIGH && resultBtn2 == LOW)
+  /*if (precBtn2 == HIGH && resultBtn2 == LOW)
   {
     isBluetoothEnabled=!isBluetoothEnabled;
   }
@@ -74,7 +74,7 @@ void loop(){
   }else{
     digitalWrite(redLedPin, LOW);
   }
-  
+  */
   // If the btn1 is pressed, reads the data from the sensor and sends it through the communication channel
   if (resultBtn1==LOW)
   {
@@ -91,7 +91,7 @@ void loop(){
 
           // Saves the button states
   precBtn1 = resultBtn1;
-  precBtn2 = resultBtn2; 
+  //precBtn2 = resultBtn2; 
  }
 
 void readSensors()
@@ -113,7 +113,7 @@ void readSensors()
     GyY=Wire.read()<<8|Wire.read();  // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
     GyZ=Wire.read()<<8|Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
 
-        if (isBluetoothEnabled)
+    /*    if (isBluetoothEnabled)
     {
       bluetooth.print("START");
       bluetooth.print(" "); bluetooth.print(AcX);
@@ -129,7 +129,7 @@ void readSensors()
       bluetooth.print(" "); bluetooth.print(val5);
       bluetooth.println(" END");
     }else{
-      
+      */
     Serial.print("START");
     Serial.print(" "); Serial.print(AcX);
     Serial.print(" "); Serial.print(AcY);
@@ -143,27 +143,27 @@ void readSensors()
     Serial.print(" "); Serial.print(val4);
     Serial.print(" "); Serial.print(val5);
     Serial.println(" END");
-    }
+    //}
 }
 
 // Sends the started batch signal
 void startBatch()
 {
-  if (isBluetoothEnabled)
+ /* if (isBluetoothEnabled)
   {
     bluetooth.println("STARTING BATCH");
   }else{
-    Serial.println("STARTING BATCH");
-  }
+ */   Serial.println("STARTING BATCH");
+  //}
 }
 
 // Sends the closed batch signal
 void closeBatch()
 {
- if (isBluetoothEnabled)
+/* if (isBluetoothEnabled)
   {
     bluetooth.println("CLOSING BATCH");
   }else{
     Serial.println("CLOSING BATCH");
-  }
+  }*/
 }
